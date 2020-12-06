@@ -76,7 +76,8 @@
         <el-col>
             <div class="grid-content " align="center">
                 <template>
-                    <el-table :data="tableData" border style="width: 100%" stripe style="background-color: transparent;">
+                    <el-table :data="tableData" border style="width: 100%" stripe
+                        style="background-color: transparent;">
                         <el-table-column fixed prop="sn" label="序號" width="80">
                         </el-table-column>
                         <el-table-column fixed prop="masterId" label="衣編" width="80">
@@ -103,15 +104,13 @@
                         </el-table-column>
                         <el-table-column prop="roomNum" label="寮號" width="120">
                         </el-table-column>
- 
+
                     </el-table>
                 </template>
                 <div class="block">
-                     <el-pagination
-                      layout="prev, pager, next"
-                      :total="1000">
+                    <el-pagination layout="prev, pager, next" :total="1000">
                     </el-pagination>
-                  </div>
+                </div>
             </div>
         </el-col>
     </div>
