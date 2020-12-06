@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chung Tai Master Data Platform</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+        content="Latest Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="css/Styles.css">
+
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <el-container>
+            <el-header style="background-color:green;padding-bottom:  0%;">
+                <el-row :gutter="1">
+
+                    <el-col>
+                        <div class="grid-content " align="center">
+                            <h1>法師資料查詢</h1>
+                        </div>
+                    </el-col>
+
+                </el-row>
+            </el-header>
+            <el-container>
+                <el-aside width="200px">Aside</el-aside>
+                <el-main>Main</el-main>
+            </el-container>
+        </el-container>
+        <el-row :gutter="1">
+
+            <el-col>
+                <div class="grid-content " align="center">
+                    <h1>法師資料查詢</h1>
+                </div>
+            </el-col>
+
+        </el-row>
+        <el-row :gutter="1">
+            <el-col :xs="19" :sm="19" :md="20" :lg="20" :xl="20">
+                <div class="grid-content " align="center"></div>
+            </el-col>
+            <el-col :xs="5" :sm="5" :md="4" :lg="4" :xl="4">
+                <div class="grid-content " align="center">
+                    <el-button type="primary"><i class="el-icon-s-tools"></i> 後台管理</el-button>
+                </div>
+            </el-col>
+        </el-row>
+        <el-col>
+            <div class="grid-content " align="center">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label-width="280px">
+                        <el-input style="width: 480px;" placeholder="請輸入至少2個關鍵字。可查詢衣編、法名、職稱、電話、寮區、寮號等"></el-input>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button type="primary"><i class="el-icon-search"></i> 查詢</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-col>
+        <el-col>
+            <div class="grid-content " align="center">
+                <template>
+                    <el-table :data="tableData" border style="width: 100%" stripe
+                        style="background-color: transparent;">
+                        <el-table-column fixed prop="sn" label="序號" width="80">
+                        </el-table-column>
+                        <el-table-column fixed prop="masterId" label="衣編" width="80">
+                        </el-table-column>
+                        <el-table-column fixed prop="masterName" label="法名" width="80">
+                        </el-table-column>
+                        <el-table-column prop="u1Name" label="單位類別" width="200">
+                        </el-table-column>
+                        <el-table-column prop="jobName" label="單位職稱" width="250">
+                        </el-table-column>
+                        <el-table-column prop="officePhoneNum" label="分機" width="80">
+                        </el-table-column>
+                        <el-table-column prop="shortMobileNum" label="手機簡碼" width="120">
+                        </el-table-column>
+                        <el-table-column prop="mobileNum" label="手機全碼" width="120">
+                        </el-table-column>
+                        <el-table-column prop="roomPhoneNum" label="寮房電話" width="120">
+                        </el-table-column>
+                        <el-table-column prop="personalEmail" label="個人信箱" width="120">
+                        </el-table-column>
+                        <el-table-column prop="officeEmail" label="公務信箱" width="120">
+                        </el-table-column>
+                        <el-table-column prop="dormName" label="寮區" width="120">
+                        </el-table-column>
+                        <el-table-column prop="roomNum" label="寮號" width="120">
+                        </el-table-column>
+
+                    </el-table>
+                </template>
+                <div class="block">
+                    <el-pagination layout="prev, pager, next" :total="1000">
+                    </el-pagination>
+                </div>
+            </div>
+        </el-col>
+    </div>
+    <script src="src/index.js"></script>
+
+</body>
+
+</html>

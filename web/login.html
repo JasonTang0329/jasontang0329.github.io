@@ -1,0 +1,50 @@
+ 
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+	<title>Chung Tai Master Data Platform</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords"
+		content="Latest Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+	<!-- 引入样式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+
+	<link rel="stylesheet" href="css/Styles.css">
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+</head>
+
+<body class="bgLogin">
+	<div id="app">
+		<el-container>
+			<el-header style=" padding-bottom:  20%; "></el-header>
+			<el-main style="    position: -webkit-sticky;padding-bottom:  10%; ">
+				<el-form label-width="100px" style="  position: sticky;margin-left: 55%;">
+					<el-row :inline="true">
+						
+							<el-form-item label="" >
+								 <el-input placeholder="衣編(如：A0123)"></el-input> 
+							</el-form-item>
+						
+					</el-row>
+					<el-form-item label="">
+						<el-input placeholder="lotus密碼(身分證末4碼加出生月日共8碼)" show-password></el-input>
+					</el-form-item>
+					<el-form-item>
+						<el-button type="danger" @click="submitForm('ruleForm')">立即创建</el-button>
+ 					</el-form-item>
+				</el-form>
+			</el-main>
+			<el-footer>(聯絡資訊)</el-footer>
+		</el-container>
+	</div>
+	<script src="src/login.js"></script>
+
+</body>
+
+</html>
