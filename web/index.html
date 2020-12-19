@@ -36,12 +36,6 @@
             border-radius: 4px;
             min-height: 36px;
         }
-
-        .el-table,
-        tr,
-        td {
-            background-color: transparent;
-        }
     </style>
 </head>
 
@@ -62,7 +56,7 @@
             </el-col>
             <el-col :xs="5" :sm="5" :md="4" :lg="4" :xl="4">
                 <div class="grid-content " align="center">
-                    <el-button type="primary"><i class="el-icon-s-tools"></i> 後台管理</el-button>
+                    <el-button type="primary" @click="gotoManage"><i class="el-icon-s-tools"></i> 後台管理</el-button>
                 </div>
             </el-col>
         </el-row>
@@ -82,9 +76,12 @@
         <el-col>
             <div class="grid-content " align="center">
                 <template>
-                    <el-table :data="tableData" border style="width: 100%" stripe style="background-color: transparent;"
-                        :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
-                        <el-table-column fixed prop="sn" label="序號" width="80">
+                    <el-table :data="tableData" border style="width: 100%" stripe
+                        style="background-color: transparent;">
+                        <el-table-column fixed label="序號" width="80"><template scope="scope">
+                                <!-- <span>{{(page - 1) * pageSize + scope.$index + 1}}</span> -->
+                                <span>{{  scope.$index + 1}}</span>
+                            </template>
                         </el-table-column>
                         <el-table-column fixed prop="masterId" label="衣編" width="80">
                         </el-table-column>
@@ -112,7 +109,7 @@
                             <el-table-column prop="roomNum" label="寮號" width="120">
                             </el-table-column>
                             <template slot="header" slot-scope="scope">
-                                <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                                <el-input size="mini" placeholder="輸入次要篩選" />
                             </template>
                         </el-table-column>
                     </el-table>

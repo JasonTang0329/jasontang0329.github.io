@@ -38,6 +38,9 @@ var Main = {
       };
     },
     methods: {
+      submit(){
+        location.replace('index.html');
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
