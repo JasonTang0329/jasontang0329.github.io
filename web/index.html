@@ -36,6 +36,12 @@
             border-radius: 4px;
             min-height: 36px;
         }
+
+        .el-table,
+        tr,
+        td {
+            background-color: transparent;
+        }
     </style>
 </head>
 
@@ -76,35 +82,39 @@
         <el-col>
             <div class="grid-content " align="center">
                 <template>
-                    <el-table :data="tableData" border style="width: 100%" stripe
-                        style="background-color: transparent;">
+                    <el-table :data="tableData" border style="width: 100%" stripe style="background-color: transparent;"
+                        :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
                         <el-table-column fixed prop="sn" label="序號" width="80">
                         </el-table-column>
                         <el-table-column fixed prop="masterId" label="衣編" width="80">
                         </el-table-column>
                         <el-table-column fixed prop="masterName" label="法名" width="80">
                         </el-table-column>
-                        <el-table-column prop="u1Name" label="單位類別" width="200">
+                        <el-table-column>
+                            <el-table-column prop="u1Name" label="單位類別" width="200">
+                            </el-table-column>
+                            <el-table-column prop="jobName" label="單位職稱" width="250">
+                            </el-table-column>
+                            <el-table-column prop="officePhoneNum" label="分機" width="80">
+                            </el-table-column>
+                            <el-table-column prop="shortMobileNum" label="手機簡碼" width="120">
+                            </el-table-column>
+                            <el-table-column prop="mobileNum" label="手機全碼" width="120">
+                            </el-table-column>
+                            <el-table-column prop="roomPhoneNum" label="寮房電話" width="120">
+                            </el-table-column>
+                            <el-table-column prop="personalEmail" label="個人信箱" width="120">
+                            </el-table-column>
+                            <el-table-column prop="officeEmail" label="公務信箱" width="120">
+                            </el-table-column>
+                            <el-table-column prop="dormName" label="寮區" width="120">
+                            </el-table-column>
+                            <el-table-column prop="roomNum" label="寮號" width="120">
+                            </el-table-column>
+                            <template slot="header" slot-scope="scope">
+                                <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                            </template>
                         </el-table-column>
-                        <el-table-column prop="jobName" label="單位職稱" width="250">
-                        </el-table-column>
-                        <el-table-column prop="officePhoneNum" label="分機" width="80">
-                        </el-table-column>
-                        <el-table-column prop="shortMobileNum" label="手機簡碼" width="120">
-                        </el-table-column>
-                        <el-table-column prop="mobileNum" label="手機全碼" width="120">
-                        </el-table-column>
-                        <el-table-column prop="roomPhoneNum" label="寮房電話" width="120">
-                        </el-table-column>
-                        <el-table-column prop="personalEmail" label="個人信箱" width="120">
-                        </el-table-column>
-                        <el-table-column prop="officeEmail" label="公務信箱" width="120">
-                        </el-table-column>
-                        <el-table-column prop="dormName" label="寮區" width="120">
-                        </el-table-column>
-                        <el-table-column prop="roomNum" label="寮號" width="120">
-                        </el-table-column>
-
                     </el-table>
                 </template>
                 <div class="block">

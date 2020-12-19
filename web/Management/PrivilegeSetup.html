@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chung Tai Master Data Platform</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+        content="Latest Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/Styles.css">
+
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .el-table,
+        tr,
+        td {
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <el-container>
+            <el-header style="background-color:#70ad47;padding-bottom: 8%;">
+                <el-row :gutter="1">
+
+                    <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+                        <div class="grid-content ">
+
+                        </div>
+                    </el-col>
+                    <el-col :xs="15" :sm="15" :md="15" :lg="15" :xl="15">
+                        <div class="grid-content " align="left">
+                            <h1 style="color: white;">中台禪寺僧眾資料共享平台</h1>
+                        </div>
+                    </el-col>
+                    <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <el-button type="warning" plain><i class="el-icon-s-home"></i>登出</el-button>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"><span style="color: white;">使用者</span></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <span style="color: white;"> ID</span>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"><span style="color: white;">角色</span></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <span style="color: white;"> IP</span>
+                                </div>
+                            </el-col>
+                        </el-row>
+
+                    </el-col>
+                </el-row>
+            </el-header>
+            <el-container>
+                <el-aside width="15%">
+                    <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </el-aside>
+                <el-main>
+                    <el-breadcrumb separator="/">
+                        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-s-unfold"></i> 一般法師查詢頁面
+                        </el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="/">後台管理</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>權限管理</el-breadcrumb-item>
+                    </el-breadcrumb>
+                    <br />
+                    <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
+                        <el-tab-pane label="帳號列表" name="first"> <br />
+                            <el-button type="danger" icon="el-icon-delete">刪除</el-button>
+                            <el-dialog title="新增帳號" :visible.sync="dialogControl.userDialogVisible" width="100%"
+                                :before-close="handleClose">
+                                <el-card class="box-card">
+
+                                    <el-form label-width="80px" :model="formLabelAlign" label-position="top">
+                                        <el-form-item label="使用者ID">
+                                            <el-input></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="使用者帳號">
+                                            <el-input></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="權限">
+                                            <el-select v-model="value" placeholder="请选择">
+                                                <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                                    :value="item.value">
+                                                </el-option>
+                                            </el-select>
+                                        </el-form-item>
+
+                                        <el-button type="warning" icon="el-icon-close"
+                                            @click="dialogControl.userDialogVisible = false">取消</el-button>
+                                        <el-button type="success" icon="el-icon-circle-plus-outline">新增</el-button>
+                                    </el-form>
+                                </el-card>
+                            </el-dialog>
+                            <el-button type="success" icon="el-icon-circle-plus-outline"
+                                @click="dialogControl.userDialogVisible = true">新增帳號
+                            </el-button>
+                            <br />
+                            <br />
+                            <el-col>
+                                <div class="grid-content " align="center">
+                                    <template>
+                                        <el-table :data="tableData" border style="width: 100%" stripe
+                                            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                            @selection-change="handleSelectionChange">
+                                            <el-table-column type="selection" width="55">
+                                            </el-table-column>
+                                            <el-table-column>
+                                                <el-table-column prop="sn" label="序號" width="60">
+                                                </el-table-column>
+                                                <el-table-column prop="masterId" label="操作">
+                                                    <el-tooltip content="編輯" placement="top">
+                                                        <el-button type="primary" icon="el-icon-edit" circle>
+                                                        </el-button>
+                                                    </el-tooltip>
+                                                    <el-tooltip content="刪除" placement="top">
+                                                        <el-button type="warning" icon="el-icon-star-off" circle>
+                                                        </el-button>
+                                                    </el-tooltip>
+                                                </el-table-column>
+                                                <el-table-column prop="userName" label="使用者名稱">
+                                                </el-table-column>
+                                                <el-table-column prop="userId" label="使用者ID">
+                                                </el-table-column>
+                                                <el-table-column prop="roleName" label="角色">
+                                                </el-table-column>
+                                                <el-table-column prop="isRestricIP" label="限制登入IP">
+                                                </el-table-column>
+                                                <el-table-column prop="startIP" label="IP起">
+                                                </el-table-column>
+                                                <el-table-column prop="endIP" label="IP迄">
+                                                </el-table-column>
+                                                <template slot="header" slot-scope="scope">
+                                                    <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </template>
+                                    <div class="block">
+                                        <el-pagination layout="prev, pager, next" :total="1000">
+                                        </el-pagination>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-tab-pane>
+                        <el-tab-pane label="角色設定" name="second">
+                            <el-dialog title="新增角色" :visible.sync="dialogControl.roleDialogVisible" width="100%"
+                                :before-close="handleClose">
+                                <el-card class="box-card">
+
+                                    <el-form>
+                                        <el-form-item label="角色名稱">
+                                            <el-input></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="IP起">
+                                            <el-input></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="IP迄">
+                                            <el-input></el-input>
+                                        </el-form-item>
+                                        <el-form-item label="">
+                                            <el-checkbox v-model="checked">限制登入IP</el-checkbox>
+                                        </el-form-item>
+
+                                        <el-button type="warning" icon="el-icon-close"
+                                            @click="dialogControl.roleDialogVisible = false">取消
+                                        </el-button>
+                                        <el-button type="success" icon="el-icon-circle-plus-outline">新增</el-button>
+                                    </el-form>
+                                </el-card>
+                            </el-dialog>
+                            <el-button @click="dialogControl.roleDialogVisible = true" type="success"
+                                icon="el-icon-circle-plus-outline">
+                                新增角色
+                            </el-button>
+                            <br/>
+                            <el-card class="box-card"> 
+                                <el-row>
+                                    <el-col :span="12"><span class="demonstration">角色</span>
+                                        <el-select v-model="value" placeholder="请选择">
+                                            <el-option v-for="item in options" :key="item.value" :label="item.label"
+                                                :value="item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :span="12">
+                                        <el-button type="primary" icon="el-icon-edit">編輯角色</el-button>
+                                        <el-button type="danger" icon="el-icon-delete">刪除角色</el-button>
+
+                                    </el-col>
+                                </el-row><br />
+                                <el-row>
+                                    <el-col :span="8"><span class="demonstration">IP起</span> {{startIP}} </el-col>
+                                    <el-col :span="8">
+                                        <span class="demonstration">
+                                            IP迄
+                                        </span> {{endIP}}
+
+                                    </el-col>
+                                    <el-col :span="8">
+                                        <el-checkbox v-model="checked1" disabled>限制登入IP
+                                        </el-checkbox>
+                                    </el-col>
+                                </el-row>
+
+                                <el-divider></el-divider>
+                                <el-transfer v-model="value" :data="data" :titles="['可加入權限', '已有權限']"
+                                    :button-texts="['移除', '加入']"></el-transfer>
+                            </el-card>
+
+                        </el-tab-pane>
+                        <el-tab-pane label="程式設定" name="third"> <br />
+                            <el-button type="danger" icon="el-icon-delete">刪除</el-button>
+                            <el-dialog title="新增程式" :visible.sync="dialogControl.messageSetupDialogVisible" width="100%"
+                                :before-close="handleClose">
+                                <el-card class="box-card">
+
+                                    <el-form>
+                                        <el-form-item label="程式群組">
+                                            <el-col :span="22">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">中文名稱<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">英文名稱<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">排序號<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                        </el-form-item>
+                                        <el-form-item label="程式">
+                                            <el-col :span="22">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">中文名稱<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">英文名稱<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                            <el-col :span="7">排序號<el-input></el-input>
+                                            </el-col>
+                                            <el-col :span="1">&nbsp;
+                                            </el-col>
+                                        </el-form-item>
+                                        <el-form-item label="程式路徑">
+                                            <el-input placeholder="程式群組英文名稱\程式英文名稱" v-model="input" :disabled="true">
+                                            </el-input>
+                                        </el-form-item>
+                                        <el-button type="warning" icon="el-icon-close"
+                                            @click="dialogControl.funcDialogVisible = false">取消</el-button>
+                                        <el-button type="success" icon="el-icon-circle-plus-outline">新增</el-button>
+                                    </el-form>
+                                </el-card>
+
+                            </el-dialog>
+
+                            <el-button @click="dialogControl.funcDialogVisible = true" type="success"
+                                icon="el-icon-circle-plus-outline">新增程式
+                            </el-button>
+                            <br />
+                            <br />
+                            <el-col>
+                                <div class="grid-content " align="center">
+                                    <template>
+                                        <el-table :data="tableData" border style="width: 100%" stripe
+                                            :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
+                                            @selection-change="handleSelectionChange">
+                                            <el-table-column type="selection" width="55">
+                                            </el-table-column>
+                                            <el-table-column>
+                                                <el-table-column prop="sn" label="序號" width="60">
+                                                </el-table-column>
+                                                <el-table-column prop="masterId" label="操作">
+                                                    <el-tooltip content="編輯" placement="top">
+                                                        <el-button type="primary" icon="el-icon-edit" circle>
+                                                        </el-button>
+                                                    </el-tooltip>
+                                                    <el-tooltip content="刪除" placement="top">
+                                                        <el-button type="warning" icon="el-icon-star-off" circle>
+                                                        </el-button>
+                                                    </el-tooltip>
+                                                </el-table-column>
+                                                <el-table-column prop="functionGroupChineseName" label="程式群組中文名稱">
+                                                </el-table-column>
+                                                <el-table-column prop="functionGroupEnglishName" label="程式群組英文名稱">
+                                                </el-table-column>
+                                                <el-table-column prop="functionGroupSortNum" label="程式群組排序號">
+                                                </el-table-column>
+                                                <el-table-column prop="functionChineseName" label="程式中文名稱">
+                                                </el-table-column>
+                                                <el-table-column prop="functionEnglishName" label="程式英文名稱">
+                                                </el-table-column>
+                                                <el-table-column prop="functionSortNum" label="程式排序號">
+                                                </el-table-column>
+                                                <el-table-column prop="functionUrls" label="程式路徑">
+                                                </el-table-column>
+                                                <template slot="header" slot-scope="scope">
+                                                    <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                                                </template>
+                                            </el-table-column>
+                                        </el-table>
+                                    </template>
+                                    <div class="block">
+                                        <el-pagination layout="prev, pager, next" :total="1000">
+                                        </el-pagination>
+                                    </div>
+                                </div>
+                            </el-col>
+                        </el-tab-pane>
+                    </el-tabs>
+
+                </el-main>
+            </el-container>
+        </el-container>
+
+    </div>
+    <script src="../src/management.js"></script>
+
+</body>
+
+</html>

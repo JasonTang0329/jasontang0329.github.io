@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Chung Tai Master Data Platform</title>
+    <!-- Meta tag Keywords -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="keywords"
+        content="Latest Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="../css/Styles.css">
+
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <style>
+        .el-col {
+            border-radius: 4px;
+        }
+
+        .bg-purple-dark {
+            background: #99a9bf;
+        }
+
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .el-table,
+        tr,
+        td {
+            background-color: transparent;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <el-container>
+            <el-header style="background-color:#70ad47;padding-bottom: 8%;">
+                <el-row :gutter="1">
+
+                    <el-col :xs="2" :sm="2" :md="2" :lg="2" :xl="2">
+                        <div class="grid-content ">
+
+                        </div>
+                    </el-col>
+                    <el-col :xs="15" :sm="15" :md="15" :lg="15" :xl="15">
+                        <div class="grid-content " align="left">
+                            <h1 style="color: white;">中台禪寺僧眾資料共享平台</h1>
+                        </div>
+                    </el-col>
+                    <el-col :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <el-button type="warning" plain><i class="el-icon-s-home"></i>登出</el-button>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"><span style="color: white;">使用者</span></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <span style="color: white;"> ID</span>
+                                </div>
+                            </el-col>
+                        </el-row>
+                        <el-row :gutter="10" style="margin-bottom: 2%;">
+                            <el-col :span="6"><span style="color: white;">角色</span></el-col>
+                            <el-col :span="6" :offset="6">
+                                <div class="grid-content " align="left">
+                                    <span style="color: white;"> IP</span>
+                                </div>
+                            </el-col>
+                        </el-row>
+
+                    </el-col>
+                </el-row>
+            </el-header>
+            <el-container>
+                <el-aside width="15%">
+                    <el-tree :data="treeData" :props="defaultProps" @node-click="handleNodeClick"></el-tree>
+                </el-aside>
+                <el-main>
+                    <el-breadcrumb separator="/">
+                        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-s-unfold"></i> 一般法師查詢頁面</el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="/">後台管理</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>公告訊息</el-breadcrumb-item> 
+                    </el-breadcrumb>
+                    <br />
+                    <el-col>
+                        <div class="grid-content " align="center">
+                            <template>
+                                <el-table :data="tableData" border style="width: 100%" stripe 
+                                    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
+                                    <el-table-column>
+                                        <el-table-column prop="sn" label="序號" width="60">
+                                        </el-table-column>
+                                        <el-table-column prop="masterId" label="操作">
+                                            <el-popover placement="right" width="400" trigger="click">
+                                                <el-card class="box-card">
+                                                    <div slot="header" class="clearfix">
+                                                        <span>{{messageTitle}}</span>
+                                                    </div>
+                                                    <div>
+                                                        {{'發佈時間 ' + createDtTm }}
+                                                    </div>
+                                                    <div>
+                                                        {{'訊息內容 ' + messageContent }}
+                                                    </div>
+                                                </el-card>
+                                                <el-button @click="handleClick(scope.row)" type="text" size="small"
+                                                    slot="reference">閱讀</el-button>
+
+                                            </el-popover>
+                                        </el-table-column>
+                                        <el-table-column prop="masterName" label="類型">
+                                            <template slot-scope="scope">
+                                                <el-tag effect="plain" :type="scope.row.tag === '最新' ? 'danger' : ''"
+                                                    disable-transitions>{{scope.row.tag}}</el-tag>
+                                            </template>
+                                        </el-table-column>
+                                        <el-table-column prop="createDtTm" label="發佈時間">
+                                        </el-table-column>
+                                        <el-table-column prop="messageTitle" label="主旨">
+                                        </el-table-column>
+                                        <el-table-column prop="messageContent" label="訊息內容">
+                                        </el-table-column>
+                                        <template slot="header" slot-scope="scope">
+                                            <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </template>
+                            <div class="block">
+                                <el-pagination layout="prev, pager, next" :total="1000">
+                                </el-pagination>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-main>
+            </el-container>
+        </el-container>
+
+    </div>
+    <script src="../src/management.js"></script>
+
+</body>
+
+</html>

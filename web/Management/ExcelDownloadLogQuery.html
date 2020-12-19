@@ -10,7 +10,7 @@
         content="Latest Login Form Responsive Widget,Login form widgets, Sign up Web forms , Login signup Responsive web form,Flat Pricing table,Flat Drop downs,Registration Forms,News letter Forms,Elements" />
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <link rel="stylesheet" href="css/Styles.css">
+    <link rel="stylesheet" href="../css/Styles.css">
 
     <!-- 引入组件库 -->
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -35,6 +35,12 @@
         .grid-content {
             border-radius: 4px;
             min-height: 36px;
+        }
+
+        .el-table,
+        tr,
+        td {
+            background-color: transparent;
         }
     </style>
 </head>
@@ -90,17 +96,50 @@
                 </el-aside>
                 <el-main>
                     <el-breadcrumb separator="/">
-                        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-s-unfold"></i> 首页</el-breadcrumb-item>
-                        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
-                        <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-                        <el-breadcrumb-item>活动详情</el-breadcrumb-item>
+                        <el-breadcrumb-item :to="{ path: '/' }"><i class="el-icon-s-unfold"></i> 一般法師查詢頁面
+                        </el-breadcrumb-item>
+                        <el-breadcrumb-item><a href="/">後台管理</a></el-breadcrumb-item>
+                        <el-breadcrumb-item>Excel匯出紀錄查詢</el-breadcrumb-item>
                     </el-breadcrumb>
+                    <br />
+                    <el-col>
+                        <div class="grid-content " align="center">
+                            <template>
+                                <el-table :data="tableData" border style="width: 100%" stripe
+                                    :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))">
+                                    <el-table-column>
+                                        <el-table-column prop="sn" label="序號" width="60">
+                                        </el-table-column>
+                                        <el-table-column prop="userId" label="使用者ID">
+                                        </el-table-column>
+                                        <el-table-column prop="userName" label="使用者名稱">
+                                        </el-table-column>
+                                        <el-table-column prop="roleName" label="角色">
+                                        </el-table-column>
+                                        <el-table-column prop="excelFileName" label="檔案名稱">
+                                        </el-table-column>
+                                        <el-table-column prop="excelFilePath" label="檔案路徑">
+                                        </el-table-column>
+                                        <el-table-column prop="downloadDtTm" label="查詢時間">
+                                        </el-table-column>
+                                        <template slot="header" slot-scope="scope">
+                                            <el-input v-model="search" size="mini" placeholder="輸入次要篩選" />
+                                        </template>
+                                    </el-table-column>
+                                </el-table>
+                            </template>
+                            <div class="block">
+                                <el-pagination layout="prev, pager, next" :total="1000">
+                                </el-pagination>
+                            </div>
+                        </div>
+                    </el-col>
                 </el-main>
             </el-container>
         </el-container>
 
     </div>
-    <script src="src/management.js"></script>
+    <script src="../src/management.js"></script>
 
 </body>
 
