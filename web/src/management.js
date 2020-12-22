@@ -54,6 +54,10 @@ var Main = {
   methods: {
     handleNodeClick(data) {
       console.log(data);
+    },
+    logOut(){
+      location.replace('../login.html');
+
     }
   }
 };

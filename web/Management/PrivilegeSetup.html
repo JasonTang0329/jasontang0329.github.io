@@ -62,7 +62,7 @@
                             <el-col :span="6"></el-col>
                             <el-col :span="6" :offset="6">
                                 <div class="grid-content " align="left">
-                                    <el-button type="warning" plain><i class="el-icon-s-home"></i>登出</el-button>
+                                    <el-button type="warning" plain @click="logOut"><i class="el-icon-s-home"></i>登出</el-button>
                                 </div>
                             </el-col>
                         </el-row>
@@ -245,7 +245,7 @@
                         </el-tab-pane>
                         <el-tab-pane label="程式設定" name="third"> <br />
                             <el-button type="danger" icon="el-icon-delete">刪除</el-button>
-                            <el-dialog title="新增程式" :visible.sync="dialogControl.messageSetupDialogVisible" width="100%"
+                            <el-dialog title="新增程式" :visible.sync="dialogControl.funcDialogVisible" width="100%"
                                 :before-close="handleClose">
                                 <el-card class="box-card">
 
